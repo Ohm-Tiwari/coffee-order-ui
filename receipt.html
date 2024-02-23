@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        * {
+            font-family: verdana;
+            background-color:#f8eaca;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .title {
+            color: brown;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .order-status a {
+            color: black;
+            text-decoration: none; 
+            cursor: pointer;
+        }
+
+        .order-info {
+            line-height: 1.2;
+            text-align: center;
+            font-size: 20px; 
+        }
+
+
+
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
+    <div class="header">
+        <div class="title">Coffee order system</div>
+        <div class="order-status"><a href="status.html">Order Status</a></div>
+    </div>
+
+    <div class="order-info">
+        <p>Order placed:</p>
+        <p>Order id: 24</p>
+        <p>Dark roast with milk and double mocha!</p>
+        <p>Total: $4.5</p>
+      </div>
+
+      <script>
+
+        document.addEventListener('DOMContendLoaded', function() {
+            let host = "http://localhost:8080";
+
+        });
+        
+
+      </script>
     
 </body>
 </html>

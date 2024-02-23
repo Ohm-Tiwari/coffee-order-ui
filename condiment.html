@@ -1,11 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        * {
+            font-family: verdana;
+            background-color:#f8eaca;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .title a {
+            color: brown;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .order-status a {
+            color: black;
+            text-decoration: none; 
+            cursor: pointer;
+        }
+
+        .condiment-button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px; 
+            width: fit-content;
+            text-align: center; 
+        }
+
+        .condiment-button-grid button {
+            margin: 5px; 
+            padding: 0; 
+            border: none; 
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            width: 100px;
+            height: 40px;
+            box-sizing: border-box;
+            padding: 15px 20px;
+            background-color: #d2a16f;
+            text-align: center;
+        }
+
+
+
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
+    <div class="header">
+        <div class="title"><a href="index.html">Coffee order system</a></div>
+        <div class="order-status"><a href="status.html">Order Status</a></div>
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <p style="text-align: center"><b>Add the condiments</b></p>
+    <div class="condiment-button-grid">
+        <button>Milk</button>
+        <button>Mocha</button>
+        <button>Soy</button>
+        <button>Whip</button>
+      </div>
+
+      <p style="text-align: right">testing</p>
+      
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let selectedBeverageType = localStorage.getItem("selectedBeverageType");
+            let selectedBeverageCost = localStorage.getItem("selectedBeverageCost");
+
+            console.log("Selected Beverage Type:", selectedBeverageType);
+            console.log("Selected Beverage Cost:", selectedBeverageCost);
+
+        });
+    </script>
     
 </body>
 </html>
