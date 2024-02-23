@@ -26,30 +26,52 @@
             cursor: pointer;
         }
 
+        .condiment-container {
+            text-align: center;
+            
+        }
+
         .condiment-button-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px; 
+            grid-gap: 0px;
             width: fit-content;
-            text-align: center; 
+            text-align: center;
+            margin: 0 auto; 
         }
+
 
         .condiment-button-grid button {
             margin: 5px; 
-            padding: 0; 
+            padding: 15px 20px; 
             border: none; 
             border-radius: 5px;
-            background-color: #f0f0f0;
             cursor: pointer;
             width: 100px;
             height: 40px;
             box-sizing: border-box;
-            padding: 15px 20px;
             background-color: #d2a16f;
             text-align: center;
         }
 
 
+        .order-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; 
+        }
+
+        .order-button {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #d2a16f;
+            width: 150px;
+            height: 60px;
+
+        }
 
     </style>
     <meta charset="UTF-8">
@@ -61,23 +83,31 @@
         <div class="title"><a href="index.html">Coffee order system</a></div>
         <div class="order-status"><a href="status.html">Order Status</a></div>
     </div>
-
-
     <br>
     <br>
     <br>
-    <br>
-    <p style="text-align: center"><b>Add the condiments</b></p>
-    <div class="condiment-button-grid">
-        <button>Milk</button>
-        <button>Mocha</button>
-        <button>Soy</button>
-        <button>Whip</button>
-      </div>
+    <br> 
+        
+    <div class="condiment-container">
+        <p style="text-align: center;"><b>Add the condiments</b></p>
+        
+        <div class="condiment-button-grid">
+            <button>Milk</button>
+            <button>Mocha</button>
+            <button>Soy</button>
+            <button>Whip</button>
+        </div>
 
-      <p style="text-align: right">testing</p>
-      
-
+        <p><b>My order</b></p>
+        <button class="order-button">Selected Beverage</button>
+        <button class="order-button">condiment 1</button>
+        <button class="order-button">condiment 2</button>
+        <button class="order-button">condiment 3</button>
+        <button class="order-button">condiment 4</button>
+        <button class="order-button">confirm order</button>
+    </div>
+          
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -88,6 +118,11 @@
             console.log("Selected Beverage Cost:", selectedBeverageCost);
 
         });
+
+        async function updateOrder(){
+
+        }
+
     </script>
     
 </body>
