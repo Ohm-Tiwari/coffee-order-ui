@@ -34,8 +34,6 @@
             font-size: 20px; 
         }
 
-
-
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,21 +45,48 @@
         <div class="order-status"><a href="status.html">Order Status</a></div>
     </div>
 
-    <div class="order-info">
-        <p>Order placed:</p>
-        <p>Order id: 24</p>
-        <p>Dark roast with milk and double mocha!</p>
-        <p>Total: $4.5</p>
-      </div>
+    <div class="order-info" id="orderInfo">
+    </div>
 
-      <script>
 
-        document.addEventListener('DOMContendLoaded', function() {
-            let host = "http://localhost:8080";
+    <script>
+        let host = "http://localhost:8080/orders";
+        document.addEventListener('DOMContentLoaded', function () {
+            let selectedBeverageType = localStorage.getItem("selectedBeverageType");
+            let selectedCondiments = JSON.parse(localStorage.getItem("selectedCondiments"));
+
+            let orderInfoContainer = document.getElementById('orderInfo');
+            fetch(`${host}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    beverage: selectedBeverageType,
+                    condiments: selectedCondiments
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let orderPlacedParagraph = document.createElement('p');
+                orderPlacedParagraph.textContent = "Order placed:";
+                orderInfoContainer.appendChild(orderPlacedParagraph);
+
+                let orderIdParagraph = document.createElement('p');
+                orderIdParagraph.textContent = `Order id: ${data.orderId}`;
+                orderInfoContainer.appendChild(orderIdParagraph);
+
+                let orderDetailsParagraph = document.createElement('p');
+                orderDetailsParagraph.textContent = `Order details: ${data.orderDetails}`;
+                orderInfoContainer.appendChild(orderDetailsParagraph);
+
+                let totalCostParagraph = document.createElement('p');
+                totalCostParagraph.textContent = `Total Cost: $${data.cost}`;
+                orderInfoContainer.appendChild(totalCostParagraph);
+            })
+            .catch(error => console.error('Error creating order:', error));
         });
-        
-
-      </script>
+    </script>
     
 </body>
 </html>

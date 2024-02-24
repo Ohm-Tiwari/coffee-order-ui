@@ -92,25 +92,26 @@
         <p style="text-align: center;"><b>Add the condiments</b></p>
         
         <div class="condiment-button-grid">
-            <button>Milk</button>
-            <button>Mocha</button>
-            <button>Soy</button>
-            <button>Whip</button>
+            <button id="milk-button">Milk</button>
+            <button id="mocha-button">Mocha</button>
+            <button id="soy-button">Soy</button>
+            <button id="whip-button">Whip</button>
         </div>
 
         <p><b>My order</b></p>
         <button id="selectedBeverageButton" class="order-button">Selected Beverage</button>
-        <button class="order-button">condiment 1</button>
-        <button class="order-button">condiment 2</button>
-        <button class="order-button">condiment 3</button>
-        <button class="order-button">condiment 4</button>
-        <button class="order-button">confirm order</button>
+        <button id="condiment1Button" class="order-button">condiment 1</button>
+        <button id="condiment2Button" class="order-button">condiment 2</button>
+        <button id="condiment3Button" class="order-button">condiment 3</button>
+        <button id="condiment4Button" class="order-button">condiment 4</button>
+        <button class="order-button" onclick="confirmOrder()">confirm order</button>
     </div>
           
     
 
     <script>
-        let host = "http://localhost:8080";
+        let host = "http://localhost:8080/orders";
+        let selectedCondiments = [];
 
         document.addEventListener('DOMContentLoaded', function() {
             let selectedBeverageType = localStorage.getItem("selectedBeverageType");
@@ -122,9 +123,53 @@
             document.getElementById('selectedBeverageButton').addEventListener('click', function() {
                 window.location.href = "beverage.html";
             });
-        });
-        async function updateOrder(){
 
+            document.getElementById('milk-button').addEventListener('click', () => handleCondimentClick('Milk'));
+            document.getElementById('mocha-button').addEventListener('click', () => handleCondimentClick('Mocha'));
+            document.getElementById('soy-button').addEventListener('click', () => handleCondimentClick('Soy'));
+            document.getElementById('whip-button').addEventListener('click', () => handleCondimentClick('Whip'));
+
+            document.getElementById('condiment1Button').addEventListener('click', () => handleCondimentXClick(0));
+            document.getElementById('condiment2Button').addEventListener('click', () => handleCondimentXClick(1));
+            document.getElementById('condiment3Button').addEventListener('click', () => handleCondimentXClick(2));
+            document.getElementById('condiment4Button').addEventListener('click', () => handleCondimentXClick(3));
+
+            updateCartDisplay();
+        });
+        function handleCondimentClick(condiment) {
+            selectedCondiments.push(condiment);
+            updateCartDisplay();
+        }
+
+        function handleCondimentXClick(index) {
+            selectedCondiments.splice(index, 1);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            let cartContainer = document.getElementById('cart-container');
+            cartContainer.innerHTML = "<p><b>My order</b></p>";
+
+            selectedCondiments.forEach((condiment, index) => {
+                let condimentButton = document.createElement('button');
+                condimentButton.className = 'order-button';
+                condimentButton.textContent = condiment;
+                condimentButton.addEventListener('click', () => handleCondimentXClick(index));
+                cartContainer.appendChild(condimentButton);
+            });
+
+            for (let i = 1; i <= 4; i++) {
+                let condimentXButton = document.getElementById(`condiment${i}Button`);
+                if (i <= selectedCondiments.length) {
+                    condimentXButton.textContent = selectedCondiments[i - 1];
+                } else {
+                    condimentXButton.textContent = `condiment ${i}`;
+                }
+            }
+        }
+
+        function confirmOrder() {
+            console.log("Confirmed Order:", selectedCondiments);
         }
 
     </script>
