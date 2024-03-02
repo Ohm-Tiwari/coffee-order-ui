@@ -169,9 +169,51 @@
         }
 
         function confirmOrder() {
-            console.log("Confirmed Order:", selectedCondiments);
+
+            fetch(`${host}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    beverage: selectedBeverageType,
+                    condiments: selectedCondiments
+                    })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Order saved successfully:", data);
+
+
+                return fetch(`${host}/${data.orderId}`);
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Receipt details fetched successfully:", data);
+                updateReceiptUI(data);
+            })
+            .catch(error => console.error("Error confirming order:", error));
         }
 
+        function updateReceiptUI(data) {
+            let orderInfoContainer = document.getElementById('orderInfo');
+            let orderPlacedParagraph = document.createElement('p');
+
+            orderPlacedParagraph.textContent = "Order placed:";
+            orderInfoContainer.appendChild(orderPlacedParagraph);
+
+            let orderIdParagraph = document.createElement('p');
+            orderIdParagraph.textContent = 'Order id: ${data.orderId}';
+            orderInfoContainer.appendChild(orderIdParagraph);
+
+            let orderDetailsParagraph = document.createElement('p');
+            orderDetailsParagraph.textContent = 'Order details: ${data.orderDetails}';
+            orderInfoContainer.appendChild(orderDetailsParagraph);
+
+            let totalCostParagraph = document.createElement('p');
+            totalCostParagraph.textContent = 'Total Cost: $${data.cost}';
+            orderInfoContainer.appendChild(totalCostParagraph);
+            }
     </script>
     
 </body>
