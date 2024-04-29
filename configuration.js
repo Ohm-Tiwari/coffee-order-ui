@@ -67,6 +67,7 @@ async function login() {
             saveTheToken(token);
             location.href = "index.html";
         } else {
+            location.href = "index.html";
             console.log(`response status:${response.status}`);
             removeTheToken();
             alert("Something went wrong!");
